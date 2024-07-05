@@ -3,12 +3,12 @@ import { UserProfile } from "./components/UserProfile";
 import { Users } from "./components/Users";
 import "./App.css";
 
-
-
 const App = () => {
   const headerRoutes = [
     { title: "Login page", path: "/login" },
     { title: "Counter page", path: "/counter" },
+    { title: "Todos page", path: "/todos" },          // Added Todos route
+    { title: "Todos List page", path: "/todos-list" } // Added TodosList route
   ];
 
   const user = {

@@ -16,6 +16,7 @@ type AppContextType = {
   deleteUser?: (user: APIUserType) => void;
   editUser?: (user: APIUserType) => void;
   getUser?: (email: string) => APIUserType | undefined;
+  searchUsers?: (searchValue: string, by: keyof APIUserType, users: APIUserType[]) => APIUserType[];
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -25,9 +26,7 @@ export const AppContext = createContext<AppContextType>({
 export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const { get, set } = useLocalStorage();
 
-  const [users, setUsers] = useState<APIUserType[]>(
-    get("users") || []
-  );
+  const [users, setUsers] = useState<APIUserType[]>(get("users") || []);
 
   const createUser = (user: APIUserType) => {
     const updatedUsers = [...users, user];
@@ -58,14 +57,24 @@ export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const getUser = (email: string) => {
-    return users.find(
-      (user: APIUserType) => user.email === email
-    );
+    return users.find((user: APIUserType) => user.email === email);
+  };
+
+  const searchUsers = (searchValue: string, by: keyof APIUserType, users: APIUserType[]) => {
+    return users.filter((user) => user[by].includes(searchValue));
   };
 
   return (
     <AppContext.Provider
-      value={{ users, setUsers, createUser, deleteUser, editUser, getUser }}
+      value={{
+        users,
+        setUsers,
+        createUser,
+        deleteUser,
+        editUser,
+        getUser,
+        searchUsers,
+      }}
     >
       {children}
     </AppContext.Provider>

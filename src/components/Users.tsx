@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { UsersList } from "./UsersList";
 import { users } from "../constants";
-import { client } from "../axios";
 import { UserVariationsType } from "../types";
 import { AppContext } from "../contexts/AppContext";
 

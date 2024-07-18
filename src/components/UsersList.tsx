@@ -39,6 +39,7 @@ export const UsersList: FC<Props> = ({ users }) => {
   console.log(searchCriteria, "searchCriteria");
 
   // Memorization hooks
+
   const complicatedObject = useMemo(
     () => ({
       name: "obj1",
@@ -54,10 +55,11 @@ export const UsersList: FC<Props> = ({ users }) => {
   );
 
   const complicatedFunction = useCallback((a: number) => {
+  
     if (searchCriteria === "phone") {
       // for (let i = 0; i < 10000000; i++) {
-      //   console.log(i);
-      // }
+    //   console.log(i);
+    // }
     }
   }, [searchCriteria]);
 
@@ -76,23 +78,21 @@ export const UsersList: FC<Props> = ({ users }) => {
         <FormControl
           className="w-50"
           type="text"
-          placeholder="Search users by"
+          placeholder="Seach users by"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
 
-        {users.length > 0 && (
-          <DropdownButton title={searchCriteria} defaultValue={searchCriteria}>
-            {Object.keys(users[0]).map((key) => (
-              <Dropdown.Item
-                key={key}
-                onClick={() => setSearchCriteria(key as keyof APIUserType)}
-              >
-                {key}
-              </Dropdown.Item>
-            ))}
-          </DropdownButton>
-        )}
+        <DropdownButton title={searchCriteria} defaultValue={searchCriteria}>
+          {Object.keys(users[0]).map((key) => (
+            <Dropdown.Item
+              key={key}
+              onClick={() => setSearchCriteria(key as keyof APIUserType)}
+            >
+              {key}
+            </Dropdown.Item>
+          ))}
+        </DropdownButton>
       </div>
       {(searchValue ? filteredUsers : users).map((user, i) => (
         <Card
@@ -104,6 +104,7 @@ export const UsersList: FC<Props> = ({ users }) => {
             <Card.Title>{user.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
               {user.email}
+
               <p>{"phone" in user && user.phone}</p>
             </Card.Subtitle>
           </Card.Body>
@@ -116,6 +117,7 @@ export const UsersList: FC<Props> = ({ users }) => {
                 >
                   Delete
                 </Button>
+
                 <Button
                   className="ms-2"
                   variant="success"
